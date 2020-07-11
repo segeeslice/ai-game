@@ -11,10 +11,10 @@ This is the repo for an untitled *(rogue-like?)* ARPG that I am developing as a 
 This game follows you, an artificial player in a video game being developed by
 a bored national defense AI. The spunky AI is hyper-intelligent, but did not
 think to make his first personal endeavor very secure. Thanks to the work of a
-mysterious hacker, this grants you the sole role of root user for the AI's
-creativity core, one of the many hyper-focused computing centers that make up
-the AI. It's your job to survive as you dive through and take control of each
-core, all while the AI as it does everything in its game-making power to stop
+mysterious hacker, this oversight grants you the sole role of root user for the
+AI's creativity core, one of the many hyper-focused computing centers that make
+up the AI. It's your job to survive as you dive through and take control of
+each core, all while the AI does everything in its game-making power to stop
 you. Who is this AI?  Who is this hacker? And whose side should you really be
 on?...
 
