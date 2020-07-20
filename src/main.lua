@@ -1,4 +1,7 @@
+require "classes/Player"
+
 -- ** Global Definitions **
+PLAYER = Player:new()
 
 -- ** Love callbacks **
 
@@ -19,9 +22,35 @@ function love.resize(w, h)
   love.window.width, love.window.height = w, h
 end
 
+-- World is a grid, currently the size of the window
 function love.draw()
-
+  drawGrid()
+  PLAYER:draw()
 end
 
 function love.update(dt)
+  PLAYER:move(dt)
+end
+
+-- ** Util methods **
+
+function drawGrid()
+  w = love.window.width
+  h = love.window.height
+  inc = 32
+
+  love.graphics.setLineWidth(3)
+  love.graphics.setColor(.35, .35, .35)
+
+  x = 0
+  while x < w do
+    love.graphics.line(x, 0, x, h)
+    x = x + inc
+  end
+
+  y = 0
+  while y < h do
+    love.graphics.line(0, y, w, y)
+    y = y + inc
+  end
 end
