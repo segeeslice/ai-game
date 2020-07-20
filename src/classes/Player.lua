@@ -9,6 +9,8 @@
   --X--
 --]]
 
+require "classes/Vector"
+
 -- ** Class definition **
 
 Player = {}
@@ -24,32 +26,27 @@ function Player:draw()
 end
 
 function Player:move(dt)
-  xMove, yMove = 0, 0
+  self.velocity:reset()
 
+  -- TODO: Generalize player keys in a configurable way
   if (love.keyboard.isDown('left')) then
-    print('left')
-    xMove = xMove - 1
+    self.velocity.x = self.velocity.x - 1
   end
   if (love.keyboard.isDown('right')) then
-    print('right')
-    xMove = xMove + 1
+    self.velocity.x = self.velocity.x + 1
   end
 
   if (love.keyboard.isDown('up')) then
-    print('up')
-    yMove = yMove - 1
+    self.velocity.y = self.velocity.y - 1
   end
   if (love.keyboard.isDown('down')) then
-    print('down')
-    yMove = yMove + 1
+    self.velocity.y = self.velocity.y  + 1
   end
 
-  print(dt)
-  print(self.x, self.y)
+  self.velocity:normalize()
 
-  -- TODO: Normalize via vector
-  self.x = self.x + xMove * self.speed * dt
-  self.y = self.y + yMove * self.speed * dt
+  self.x = self.x + self.velocity.x * self.speed * dt
+  self.y = self.y + self.velocity.y * self.speed * dt
 end
 
 function Player:new(arg)
@@ -60,7 +57,8 @@ function Player:new(arg)
     y = arg.y or 0,
     width = 32,
     height = 64,
-    speed = 128 -- Units/sec
+    speed = 128, -- Units/sec
+    velocity = Vector:new()
   }
 
   return setmetatable(p, { __index = self })
