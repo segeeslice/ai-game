@@ -55,9 +55,9 @@ function Player:new(arg)
   local p = {
     x = arg.x or 0,
     y = arg.y or 0,
-    width = 32,
-    height = 64,
-    speed = 128, -- Units/sec
+    width = CONFIG.unitSize,
+    height = CONFIG.unitSize * 2,
+    speed = CONFIG.unitSize * 4, -- Units/sec
     velocity = Vector:new()
   }
 
