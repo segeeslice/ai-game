@@ -7,6 +7,10 @@ CONFIG = {
   windowUnitWidth = 16, -- Number of units to keep the game screen wide
   windowUnitHeight = 8, -- ^ but height
   scale = 1, -- Scale for all drawn pixels
+  camera = {
+    xOffset = 0,
+    yOffset = 0
+  }
 }
 
 -- ** Love callbacks **
@@ -53,6 +57,8 @@ end
 
 function love.update(dt)
   PLAYER:move(dt)
+  -- TODO: Smoother camera transition via separate function
+  CONFIG.camera.xOffset, CONFIG.camera.yOffset = getCameraOffsets(PLAYER.x, PLAYER.y)
 end
 
 -- ** Util methods **
@@ -64,15 +70,30 @@ function drawGrid()
   love.graphics.setLineWidth(3)
   love.graphics.setColor(.35, .35, .35)
 
-  x = 0
+  x = -CONFIG.camera.xOffset
   while x < w do
     love.graphics.line(x, 0, x, h)
     x = x + CONFIG.unitSize
   end
 
-  y = 0
+  y = -CONFIG.camera.yOffset
   while y < h do
     love.graphics.line(0, y, w, y)
     y = y + CONFIG.unitSize
   end
+end
+
+function getCameraOffsets(x, y)
+  local scaledWidth, scaledHeight = getScaledWindowDimensions()
+  -- TODO: Could store the /2 variables for higher efficiency
+  local xOffset = x - scaledWidth/ 2
+  local yOffset = y - scaledHeight / 2
+
+  return xOffset, yOffset
+end
+
+function getScaledWindowDimensions ()
+  local scaledWidth = love.window.width / CONFIG.scale
+  local scaledHeight = love.window.height / CONFIG.scale
+  return scaledWidth, scaledHeight
 end

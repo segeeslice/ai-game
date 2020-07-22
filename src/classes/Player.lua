@@ -1,13 +1,3 @@
---[[
-  Class that defines the player character. Coordinates based at the center of the
-  player's feet, for (hopefully) easier calculations later on.
-
-  e.g.
-  _____
-  |   |
-  |   |
-  --X--
---]]
 
 require "classes/Vector"
 
@@ -17,10 +7,9 @@ Player = {}
 
 function Player:draw()
   love.graphics.setColor(.8, .2, .2)
-  -- print(self.x, self.y, self.width, self.height)
   love.graphics.rectangle('fill',
-                          self.x - self.width/2,
-                          self.y - self.height,
+                          self:getDrawableX(),
+                          self:getDrawableY(),
                           self.width,
                           self.height)
 end
@@ -47,6 +36,29 @@ function Player:move(dt)
 
   self.x = self.x + self.velocity.x * self.speed * dt
   self.y = self.y + self.velocity.y * self.speed * dt
+end
+
+--[[
+  Player XY coordinates based at the center of the player's feet, for
+  (hopefully) easier calculations
+
+  e.g.
+  _____
+  |   |
+  |   |
+  --X--
+
+  These methods convert back to corner mode for use in drawing
+--]]
+function Player:getCornerX() return self.x - self.width/2 end
+function Player:getCornerY() return self.y - self.height end
+
+-- Utilize camera offset to get the drawable X and Y
+function Player:getDrawableX()
+  return self:getCornerX() - CONFIG.camera.xOffset
+end
+function Player:getDrawableY()
+  return self:getCornerY() - CONFIG.camera.yOffset
 end
 
 function Player:new(arg)
