@@ -5,10 +5,9 @@
 - [x] Upload to GitHub
 
 ### Phase 1: Basics & Physics Engine
-- [ ] Create moveable character controlled by WASD
-- [ ] Create world system with custom, pixel-decoupled grid
+- [x] Create moveable character controlled by WASD
+- [x] Create world system with custom, pixel-decoupled grid
 - [ ] Set camera to follow character in larger area
-- [ ] Set up world to be zoomable
 - [ ] Add basic sprite/animation system for movement
 - [ ] Add world generation w/ non-player items
 - [ ] Add collision detection system
