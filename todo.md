@@ -7,9 +7,9 @@
 ### Phase 1: Basics & Physics Engine
 - [x] Create moveable character controlled by WASD
 - [x] Create world system with custom, pixel-decoupled grid
-- [ ] Set camera to follow character in larger area
+- [-] Set camera to follow character in larger area
   - [x] Basic movement
-  - [ ] Investigate smoother movement via easing
+  - [x] Investigate smoother movement via easing
   - [ ] Generalize drawing logic into a "Drawable" class
 - [ ] Add basic sprite/animation system for movement
 - [ ] Add world generation w/ non-player items
