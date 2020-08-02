@@ -15,7 +15,21 @@ function copy(obj, seen)
   return setmetatable(res, getmetatable(obj))
 end
 
+-- e.g. logBase(4, 2) = 2
+-- Based on principle that logb(a) = logc(a) / logc(b)
+function logBase(num, base)
+  return math.log(num) / math.log(base)
+end
+
+-- Find the nth root of some method
+-- https://rosettacode.org/wiki/Nth_root#Lua
+function nRoot(num, root)
+  return math.pow(num, 1/root)
+end
+
 -- Namespace for easier code tracing
 utils = {
-  copy = copy
+  copy = copy,
+  logBase = logBase,
+  nRoot = nRoot
 }
