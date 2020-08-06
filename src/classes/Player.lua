@@ -1,5 +1,6 @@
 
 require "classes/Vector"
+require "classes/static/Camera"
 
 -- ** Class definition **
 
@@ -55,10 +56,10 @@ function Player:getCornerY() return self.y - self.height end
 
 -- Utilize camera offset to get the drawable X and Y
 function Player:getDrawableX()
-  return self:getCornerX() - CONFIG.camera.xOffset
+  return self:getCornerX()
 end
 function Player:getDrawableY()
-  return self:getCornerY() - CONFIG.camera.yOffset
+  return self:getCornerY()
 end
 
 function Player:new(arg)
