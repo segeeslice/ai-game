@@ -10,13 +10,12 @@
 - [x] Set camera to follow character in larger area
   - [x] Basic movement
   - [x] Investigate smoother movement via easing
-  - [ ] ~~Generalize drawing logic into a "Drawable" class~~
+  - [ ] ~~Generalize drawing logic into a "Drawable" class~~ &darr;
   - [x] Generalize camera as static class and handle offsets in Love
-- [ ] Add basic sprite/animation system for movement
-- [ ] Add world generation w/ non-player items
-- [ ] Add collision detection system
+- [ ] Add collision detection system & non-player items
 
-### Phase 2: Test world
+### Phase 2: World building
+- [ ] Add basic sprite/animation system for movement
 - [ ] Create sprites & animations for a test room / world for further development
 
 ### Phase 3: Combat
