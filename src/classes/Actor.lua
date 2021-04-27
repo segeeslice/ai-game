@@ -7,7 +7,7 @@ Actor = inherit.from(nil)
 
 function Actor:draw()
   -- TODO: make color configurable
-  love.graphics.setColor(.8, .2, .2)
+  love.graphics.setColor(unpack(self.color))
   love.graphics.rectangle('fill',
                           self:getDrawableX(),
                           self:getDrawableY(),
@@ -50,10 +50,11 @@ function Actor:new(arg)
   local instance = {
     x = arg.x or 0,
     y = arg.y or 0,
-    width = CONFIG.unitSize,
-    height = CONFIG.unitSize * 2,
-    speed = CONFIG.unitSize * 4, -- Units/sec
-    velocity = Vector:new()
+    color = arg.color or { .4, .4, 1 },
+    width = arg.width or CONFIG.unitSize,
+    height = arg.height or CONFIG.unitSize * 2,
+    speed = arg.speed or CONFIG.unitSize * 4, -- Units/sec
+    velocity = Vector:new(),
   }
 
   return self:create(instance)

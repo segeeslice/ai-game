@@ -31,6 +31,15 @@ function Player:move(dt)
 end
 
 function Player:new(arg)
-  parentInstance = self.super:new(arg)
+  arg = arg or {}
+
+  local instance = {
+    color = arg.color or { .8, .2, .2 },
+    width = arg.width or CONFIG.unitSize,
+    height = arg.height or CONFIG.unitSize * 2,
+    speed = arg.speed or CONFIG.unitSize * 4, -- Units/sec
+  }
+
+  parentInstance = self.super:new(instance)
   return setmetatable(parentInstance, { __index = self })
 end
