@@ -1,3 +1,10 @@
+--[
+--The Actor class, pertaining to any moveable, collidable object in-game
+--Can essentially be the base class for any collision-based object in the future
+--
+--TODO: Collision handling
+--]
+
 require "classes/Vector"
 require "classes/inherit"
 

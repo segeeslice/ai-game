@@ -1,3 +1,10 @@
+--[
+--An Actor specifically for the player-controlled character
+--Acts as any other actor but additionally captures keyboard inputs
+--
+--TODO: Could probably be made static?
+--TODO: Generalize player keys in an easily configurable way
+--]
 
 require "classes/Vector"
 require "classes/inherit"
@@ -10,7 +17,6 @@ Player = inherit.from(Actor)
 function Player:move(dt)
   self.velocity:reset()
 
-  -- TODO: Generalize player keys in a configurable way
   if (love.keyboard.isDown('left')) then
     self.velocity.x = self.velocity.x - 1
   end
