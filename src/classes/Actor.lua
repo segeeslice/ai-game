@@ -1,6 +1,5 @@
 require "classes/Vector"
 require "classes/inherit"
-require "utils"
 
 -- ** Class definition **
 
@@ -18,7 +17,6 @@ end
 
   -- Move based on the actor's current velocity and speed
 function Actor:move(dt)
-  utils.pprint(self)
   self.x = self.x + self.velocity.x * self.speed * dt
   self.y = self.y + self.velocity.y * self.speed * dt
 end

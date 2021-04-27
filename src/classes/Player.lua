@@ -3,8 +3,6 @@ require "classes/Vector"
 require "classes/inherit"
 require "classes/Actor"
 
-require "utils"
-
 -- ** Class definition **
 
 Player = inherit.from(Actor)
