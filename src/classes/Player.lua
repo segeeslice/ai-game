@@ -1,24 +1,22 @@
+--[
+--An Actor specifically for the player-controlled character
+--Acts as any other actor but additionally captures keyboard inputs
+--
+--TODO: Could probably be made static?
+--TODO: Generalize player keys in an easily configurable way
+--]
 
 require "classes/Vector"
-require "classes/static/Camera"
+require "classes/inherit"
+require "classes/Actor"
 
 -- ** Class definition **
 
-Player = {}
-
-function Player:draw()
-  love.graphics.setColor(.8, .2, .2)
-  love.graphics.rectangle('fill',
-                          self:getDrawableX(),
-                          self:getDrawableY(),
-                          self.width,
-                          self.height)
-end
+Player = inherit.from(Actor)
 
 function Player:move(dt)
   self.velocity:reset()
 
-  -- TODO: Generalize player keys in a configurable way
   if (love.keyboard.isDown('left')) then
     self.velocity.x = self.velocity.x - 1
   end
@@ -35,44 +33,19 @@ function Player:move(dt)
 
   self.velocity:normalize()
 
-  self.x = self.x + self.velocity.x * self.speed * dt
-  self.y = self.y + self.velocity.y * self.speed * dt
-end
-
---[[
-  Player XY coordinates based at the center of the player's feet, for
-  (hopefully) easier calculations
-
-  e.g.
-  _____
-  |   |
-  |   |
-  --X--
-
-  These methods convert back to corner mode for use in drawing
---]]
-function Player:getCornerX() return self.x - self.width/2 end
-function Player:getCornerY() return self.y - self.height end
-
--- Utilize camera offset to get the drawable X and Y
-function Player:getDrawableX()
-  return self:getCornerX()
-end
-function Player:getDrawableY()
-  return self:getCornerY()
+  self.super.move(self, dt)
 end
 
 function Player:new(arg)
   arg = arg or {}
 
-  local p = {
-    x = arg.x or 0,
-    y = arg.y or 0,
-    width = CONFIG.unitSize,
-    height = CONFIG.unitSize * 2,
-    speed = CONFIG.unitSize * 4, -- Units/sec
-    velocity = Vector:new()
+  local instance = {
+    color = arg.color or { .8, .2, .2 },
+    width = arg.width or CONFIG.unitSize,
+    height = arg.height or CONFIG.unitSize * 2,
+    speed = arg.speed or CONFIG.unitSize * 4, -- Units/sec
   }
 
-  return setmetatable(p, { __index = self })
+  parentInstance = self.super:new(instance)
+  return setmetatable(parentInstance, { __index = self })
 end
