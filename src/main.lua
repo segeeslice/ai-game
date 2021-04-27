@@ -1,5 +1,4 @@
 require "classes/Player"
-require "utils"
 require "classes/static/Camera"
 
 -- ** Global Definitions **
@@ -10,6 +9,8 @@ CONFIG = {
   windowUnitHeight = 8, -- ^ but height
   scale = 1, -- Scale for all drawn pixels
 }
+
+ACTORS = {}
 
 -- ** Love callbacks **
 
@@ -25,6 +26,8 @@ function love.load()
   love.resize(love.graphics.getDimensions())
 
   PLAYER = Player:new()
+  ACTOR1 = Actor:new()
+  ACTORS = {PLAYER, ACTOR1}
 end
 
 -- Width & height aren't default love variables, but this
@@ -52,10 +55,15 @@ end
 -- World is a grid, currently the size of the window
 function love.draw()
   love.graphics.scale(CONFIG.scale, CONFIG.scale)
+
+  -- Define offset of all graphics, controlling our "Camera"
   -- Not sure why these need to be negative...
   love.graphics.translate(-Camera.offset.x, -Camera.offset.y)
+
   drawGrid()
-  PLAYER:draw()
+  for i, actor in ipairs(ACTORS) do
+    actor:draw()
+  end
 end
 
 function love.update(dt)
