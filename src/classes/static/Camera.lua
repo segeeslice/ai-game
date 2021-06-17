@@ -24,6 +24,12 @@ function Camera:moveEased(x, y, dt)
   self.offset.x, self.offset.y =  self:_getEasedOffsetsAt(x, y, dt)
 end
 
+function Camera:getMousePosition(scale)
+  rawMouseX, rawMouseY = love.mouse.getPosition()
+  return rawMouseX / scale + self.offset.x,
+         rawMouseY / scale + self.offset.y
+end
+
 -- ** Private Utility Methods **
 
 -- Get a single eased offset coordinate

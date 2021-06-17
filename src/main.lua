@@ -69,6 +69,16 @@ end
 function love.update(dt)
   PLAYER:move(dt)
   Camera:moveEased(PLAYER.x, PLAYER.y, dt)
+
+  -- Temp
+  mouseX, mouseY = Camera:getMousePosition(CONFIG.scale)
+  collide = PLAYER:checkCollides(mouseX, mouseY)
+  -- print(collide)
+  if collide then
+    PLAYER.color = {.4, .4, 1}
+  else
+    PLAYER.color = {.8, .8, .2}
+  end
 end
 
 -- ** Util methods **

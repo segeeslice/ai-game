@@ -1,6 +1,6 @@
 --[
---The Actor class, pertaining to any moveable, collidable object in-game
---Can essentially be the base class for any collision-based object in the future
+--The Actor class, pertaining to any moveable, object in-game
+--Can essentially be the base class for any on-screen object in the future
 --
 --TODO: Collision handling
 --]
@@ -12,8 +12,14 @@ require "classes/inherit"
 
 Actor = inherit.from(nil)
 
+-- _CollidableActors = {}
+
+-- function Actor.ProcessCollisions()
+--   -- Temp
+--   print(table.getn(_CollidableActors))
+-- end
+
 function Actor:draw()
-  -- TODO: make color configurable
   love.graphics.setColor(unpack(self.color))
   love.graphics.rectangle('fill',
                           self:getDrawableX(),
@@ -22,7 +28,7 @@ function Actor:draw()
                           self.height)
 end
 
-  -- Move based on the actor's current velocity and speed
+-- Move based on the actor's current velocity and speed
 function Actor:move(dt)
   self.x = self.x + self.velocity.x * self.speed * dt
   self.y = self.y + self.velocity.y * self.speed * dt
@@ -40,15 +46,25 @@ end
 
   These methods convert back to corner mode for use in drawing
 --]]
-function Actor:getCornerX() return self.x - self.width/2 end
-function Actor:getCornerY() return self.y - self.height end
+function Actor:getLeftX() return self.x - self.width/2 end
+function Actor:getRightX() return self.x + self.width/2 end
+function Actor:getTopY() return self.y - self.height end
+function Actor:getBottomY() return self.y end
 
 -- Utilize camera offset to get the drawable X and Y
 function Actor:getDrawableX()
-  return self:getCornerX()
+  return self:getLeftX()
 end
 function Actor:getDrawableY()
-  return self:getCornerY()
+  return self:getTopY()
+end
+
+function Actor:checkCollides(x, y)
+  return (
+    x > self:getLeftX() and
+    x < self:getRightX() and
+    y > self:getTopY() and
+    y < self:getBottomY())
 end
 
 function Actor:new(arg)
@@ -62,6 +78,7 @@ function Actor:new(arg)
     height = arg.height or CONFIG.unitSize * 2,
     speed = arg.speed or CONFIG.unitSize * 4, -- Units/sec
     velocity = Vector:new(),
+    allowCollision = arg.allowCollision == nil and false or arg.allowCollision,
   }
 
   return self:create(instance)
